@@ -4,6 +4,8 @@ define(['jquery', 'underscore', 'backbone', 'models/Hostel', 'components/grid', 
         var ConfigureView = Backbone.View.extend({
             template: _.template($('#configure-template').html()),
 
+
+
             // Event listeners bound to local functions
             events: {
                 'click #saveconfig': 'saveConfig',
@@ -29,10 +31,10 @@ define(['jquery', 'underscore', 'backbone', 'models/Hostel', 'components/grid', 
 
             saveConfig: function () {
 
-                console.log('setting null')
+
                 localStorage.removeItem('model_json')
 
-
+                console.log(JSON.stringify(this.model));
 
 
                 var gridster_instance = gridster.getGridster();

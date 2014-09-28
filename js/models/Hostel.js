@@ -115,6 +115,13 @@ define(['backbone', 'models/Room', 'models/Campingplace', 'models/Bathroom', 'co
                 return "No Client found for this reservation";
             },
 
+            clearData: function(){
+                this.get('rooms').reset();
+                this.get('campingplaces').reset();
+                this.get('bathrooms').reset();
+                this.get('reservations').reset();
+            },
+
             validate: function (attrs, options) {
                 if (attrs.name.length == 0) {
                     return "You must add a hostel name!";

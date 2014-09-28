@@ -68,7 +68,6 @@ define(['jquery', 'underscore', 'backbone', 'components/grid', 'models/Client', 
                             Router.navigate('#/manage/' + datestr, {trigger: true});
                         });
 
-
                 });
 
                 var gridster_instance = gridster.getGridster();
