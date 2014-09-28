@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Hostel Manager WebApp</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dario Banfi">
+
+    <link href='font/font.css' rel='stylesheet' type='text/css'>
+    <link href="css/bootplus.css" rel="stylesheet">
+    <link href="css/grid.css" rel="stylesheet">
+    <link href="css/datepicker.css" rel="stylesheet">
+    <link href="css/toastr.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 70px;
+            padding-bottom: 40px;
+            background-color: #F0F0F0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<script data-main="js/app.js" src="js/lib/require.js"></script>
+
+<!-- MAIN SECTION -->
+
+<section id="main" class="content-wrapper main-content clear-fix">
+
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p class="text-right">&copy; Dario Banfi 2014</p>
+</div>
+
+
+<!-- WELCOME TEMPLATE -->
+<script type="text/template" id="welcome-template">
+    <div class="container-narrow">
+        <div class="jumbotron">
+            <h1>Welcome to Hostel Manager!</h1><br>
+
+            <p class="lead">Use this WebApp to manage the availability of your hotel rooms and keep track of the
+                clients.</p>
+            <br>
+
+            <p>Choose your hostel name: </p>
+            <input type="text" class="input-large search-query" id="hostelnametext"></br><br/>
+            <a class="btn btn-large btn-success" id="startbutton" href="#configure">Start</a>
+        </div>
+    </div>
+</script>
+
+
+<!-- CONFIGURE TEMPLATE -->
+
+<script type="text/template" id="configure-template">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Hostel Manager</a>
+
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li id="configuremenu" class="active"><a href="#">Configure</a></li>
+                        <li id="managemenu"><a href="#manage/today">Manage</a></li>
+                    </ul>
+                    <p class="navbar-text pull-right">
+                        Configuring the hostel: <b><%= hostelname %> </b>
+                    </p>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="sidebar-nav">
+
+                    <div id="configsidebar">
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-large btn-success dropdown-toggle"
+                                    data-toggle="dropdown">
+                                +
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a id="addroom" href="#configure">Room</a></li>
+                                <li><a id="addcampingplace" href="#configure">Camping place</a></li>
+                                <li><a id="addbathroom" href="#configure">Bathroom</a></li>
+
+                            </ul>
+
+                        </div>
+                        <button id="resetgrid" type="button" class="btn btn-large btn-danger dropdown-toggle"
+                                data-toggle="dropdown">
+                            Reset
+                        </button>
+                        <br/> <br/>
+
+                        <div class="card" id="roomcard" style="padding:10px;">
+                            <h4>Add room</h4>
+                            <hr>
+                            <form id="configureform">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="number">Number</label>
+                                        <input style="width: 4em;" type="text" class="form-control" id="number"
+                                               value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="beds">Beds</label>
+                                        <input style="width: 4em;" type="text" class="form-control" id="beds" value="2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bathroomincluded">Bathroom included</label>
+
+                                        <p>
+                                            <small>Yes <input type="radio" name="bathroomincluded" value="yes"
+                                                              checked=""/>
+                                                No <input type="radio" name="bathroomincluded" value="no"/></small>
+                                        </p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="airconditioning">Air conditioning</label>
+
+                                        <p>
+                                            <small> Yes <input type="radio" name="airconditioning" value="yes"/>
+                                                No <input type="radio" name="airconditioning" value="no" checked=""/>
+                                            </small>
+                                        </p>
+                                    </div>
+                                    <br>
+                                    <button id="confirmroom" type="button" class="btn btn-large btn-success">
+                                        Add element
+                                    </button>
+                                </fieldset>
+                            </form>
+
+                        </div>
+
+                        <div class="card hide" id="campingplacecard" style="padding:10px;">
+                            <h4>Add camping place</h4>
+                            <hr>
+                            <form id="configureform1">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="number">Number</label>
+                                        <input style="width: 4em;" type="text" class="form-control"
+                                               id="campingplacenumber" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="number">Terrain</label>
+                                        <select id="terrain">
+                                            <option value="grass">Grass</option>
+                                            <option value="gravel">Gravel</option>
+                                            <option value="soil">Soil</option>
+                                            <option value="sand">Sand</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="shadow">Shadow</label>
+
+                                        <p>
+                                            <small>
+                                                Yes <input type="radio" name="shadow" value="yes" checked=""/>
+                                                No <input type="radio" name="shadow" value="no"/></small>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="electricity">Electricity</label>
+
+                                        <p>
+                                            <small>Yes <input type="radio" checked="" name="electricity" value="yes"/>
+                                                No <input type="radio" name="electricity" value="no"/></small>
+                                        </p>
+                                    </div>
+                                    <br>
+                                    <button id="confirmcampingplace" type="button" class="btn btn-large btn-success">
+                                        Add element
+                                    </button>
+                                </fieldset>
+                            </form>
+
+                        </div>
+
+                        <div class="card hide" id="bathroomcard" style="padding:10px;">
+                            <h4>Add bathroom</h4>
+                            <hr>
+                            <form id="configureform2">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="showers">Number of showers</label>
+                                        <input style="width: 4em;" type="text" class="form-control" id="showers"
+                                               value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="wcs">Number of WCs</label>
+                                        <input style="width: 4em;" type="text" class="form-control" id="wcs" value="1">
+                                    </div>
+                                    <br>
+                                    <button id="confirmbathroom" type="button" class="btn btn-large btn-success">
+                                        Add element
+                                    </button>
+                                </fieldset>
+                            </form>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!--/span-->
+
+            <div class="span7">
+
+                <div class="hero-unit">
+
+                    <div class="gridster">
+                        <ul>
+                        </ul>
+                    </div>
+
+                </div>
+                <a class="btn btn-large btn-success" id="saveconfig" href="#manage/today">Save</a> <br><br><br>
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+<!-- MANAGE TEMPLATE -->
+<script type="text/template" id="manage-template">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Hostel Manager</a>
+
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li id="configuremenu"><a href="#configure">Configure</a></li>
+                        <li id="managemenu" class="active"><a href="#manage/today">Manage</a></li>
+                    </ul>
+                    <p class="navbar-text pull-right">
+                        <b><%= hostelname %></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="#/manage/today" style="margin-top: 0px;" role="button" class="btn btn-primary btn-lg"><%=
+                            date %></a>
+                    </p>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="sidebar-nav">
+
+                    <div id="configsidebar">
+
+                        <div class="card" id="managesidebar" style="padding:10px;">
+                            <h4>Add client</h4>
+                            <hr>
+                            <form id="addclient">
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="number">Name</label>
+                                        <input type="text" class="form-control" id="name" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="number">Surname</label>
+                                        <input type="text" class="form-control" id="surname" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="number">Nationality</label>
+                                        <input type="text" class="form-control" id="nationality" value="">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="number">Passport number</label>
+                                        <input type="text" class="form-control" id="passport" value="">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="number">Number of nights</label>
+                                        <input style="width: 2em;" type="text" class="form-control" id="numnights"
+                                               value="1">
+                                    </div>
+
+                                    <div class="form-group">Assign to: <br>
+                                        <select id="assignto">
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="number">Date</label>
+                                        <input value="<%= date %>" id="datefield" data-provide="datepicker">
+
+                                    </div>
+
+                                    <br>
+
+                                    <button id="confirmovernight" type="button" class="btn btn-large btn-success">
+                                        Confirm
+                                    </button>
+                                </fieldset>
+
+                            </form>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!--/span-->
+
+            <div class="span7">
+
+                <div class="hero-unit">
+
+                    <div class="gridster">
+                        <ul>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="span2">
+                <div class="hero-unit date-pad">
+                    <div id="dp6" data-date="<%=  view_date %>" data-date-format="mm/dd/yyyy"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CLIENT INFO MODAL -->
+    <div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Client details</h4>
+                </div>
+                <div class="modal-body">
+                    <b>Name</b>
+
+                    <p id="modalname"></p>
+                    <b>Surname</b>
+
+                    <p id="modalsurname"></p>
+                    <b>Nationality </b>
+
+                    <p id="modalnationality"></p>
+                    <b>Passport</b>
+
+                    <p id="modalpassport"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+</body>
+</html>
