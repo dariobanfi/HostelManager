@@ -116,6 +116,9 @@ define(['backbone', 'models/Room', 'models/Campingplace', 'models/Bathroom', 'co
             },
 
             clearData: function(){
+
+                // clearning data to avoid misconfigurations
+                console.log('clearing old config');
                 this.get('rooms').reset();
                 this.get('campingplaces').reset();
                 this.get('bathrooms').reset();

@@ -80,9 +80,10 @@ define(['jquery', 'underscore', 'backbone', 'components/grid', 'models/Client', 
                         gridster_instance.add_widget.apply(gridster_instance, places[i].gethtml());
                     }
                 }
-                // Loading config from localStorage data
+//                Loading config from localStorage data
                 else if (places.length == 0) {
                     var hotel_config = JSON.parse(localStorage.getItem('model_json'));
+                    console.log(hotel_config);
                     this.model.set('name', hotel_config.name);
                     for (i = 0; i < hotel_config.rooms.length; i++) {
                         var room = hotel_config.rooms[i];
@@ -98,7 +99,7 @@ define(['jquery', 'underscore', 'backbone', 'components/grid', 'models/Client', 
 
                     for (i = 0; i < hotel_config.bathrooms.length; i++) {
                         var place = hotel_config.bathrooms[i];
-                        var model_place = this.model.addBathroom({wcs: place.wcs, showers: place.showers});
+                        var model_place = this.model.addBathroom({wcs: place.wcs, showers: place.showers, size_x: place.size_x, size_y: place.size_y, cols: place.cols, rows: place.rows});
                     }
                 }
 

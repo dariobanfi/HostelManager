@@ -8,6 +8,7 @@ define(['backbone'], function (Backbone) {
 
         gethtml: function(){
 
+
             if(this.get('cols')== undefined && this.get('rows') == undefined){
                 var bathroom_representation = ['<li style="font-size:x-small;">Bathroom<br>WCs: ' + this.get('wcs') +
                     '<br>Showers: ' + this.get('showers') + '</li>', this.get('size_x'), this.get('size_y')];
@@ -16,6 +17,8 @@ define(['backbone'], function (Backbone) {
             }
 
             else{
+
+                console.log(this.get('cols'));
                 var bathroom_representation = ['<li style="font-size:x-small;">Bathroom<br>WCs: ' + this.get('wcs') +
                     '<br>Showers: ' + this.get('showers') + '</li>', this.get('size_x'), this.get('size_y'), this.get('cols'), this.get('rows')];
 

@@ -22,6 +22,8 @@ define(['jquery', 'underscore', 'backbone', 'models/Hostel', 'components/grid', 
             // Renders the template with the given data (hostelName)
             render: function () {
 
+                this.model.clearData();
+
                 var variables = { hostelname: this.getHostelName() };
 
                 this.$el.html(this.template(variables));

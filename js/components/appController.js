@@ -16,6 +16,7 @@ define(['jquery', 'underscore', 'backbone', 'models/Hostel'], function ($, _, Ba
         configure: function () {
             var self = this;
             require(['views/ConfigureView'], function (ConfigureView) {
+                localStorage.clear();
                 var view = new ConfigureView({model: AppController.hostel});
                 self.renderView.call(self, view);
             });
